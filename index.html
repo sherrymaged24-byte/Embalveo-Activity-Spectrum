@@ -35,7 +35,7 @@
     padding:38px 48px 60px;
     position:relative;
   }
-
+ 
   /* ---------- HEADER ---------- */
   header{
     display:flex;
@@ -76,7 +76,7 @@
     color:var(--ink-dim);
     font-weight:600;
   }
-
+ 
   .brief{
     display:flex;
     align-items:center;
@@ -102,7 +102,7 @@
     color:#dbe2ff;
   }
   .brief .pill b{ color:#fff; }
-
+ 
   /* ---------- SOURCE TRAY (draggable bacteria) ---------- */
   .tray-panel{
     border:1px solid #2c3a80;
@@ -161,7 +161,7 @@
   .microbe:active{ cursor:grabbing; }
   .microbe.dragging{ opacity:.35; transform:scale(.94); }
   .microbe.placed{ opacity:.28; filter:grayscale(.5); pointer-events:none; }
-
+ 
   .m-circle{
     width:96px; height:96px;
     border-radius:50%;
@@ -172,7 +172,7 @@
   }
   .microbe:hover .m-circle{ transform:translateY(-4px); }
   .m-circle svg{ width:60px; height:60px; }
-
+ 
   .m-name{
     margin-top:12px;
     font-size:11.5px;
@@ -188,7 +188,7 @@
     font-weight:800;
     letter-spacing:.5px;
   }
-
+ 
   /* ring + glow per color, generated via data attr */
   .microbe[data-c="kpc"] .m-circle{ border:2px solid var(--kpc); box-shadow:0 0 26px #f4b93e66, inset 0 0 20px #f4b93e22;}
   .microbe[data-c="ndm"] .m-circle{ border:2px solid var(--ndm); box-shadow:0 0 26px #3ddc8466, inset 0 0 20px #3ddc8422;}
@@ -200,7 +200,7 @@
   .microbe[data-c="paer"] .m-circle{ border:2px solid #8ea3d6; box-shadow:0 0 26px #8ea3d666, inset 0 0 20px #8ea3d622;}
   .microbe[data-c="abau"] .m-circle{ border:2px solid #ff4f6d; box-shadow:0 0 26px #ff4f6d66, inset 0 0 20px #ff4f6d22;}
   .microbe[data-c="smar"] .m-circle{ border:2px solid #d9633d; box-shadow:0 0 26px #d9633d66, inset 0 0 20px #d9633d22;}
-
+ 
   .microbe[data-c="kpc"] .m-name .abbr{ color:var(--kpc); }
   .microbe[data-c="ndm"] .m-name .abbr{ color:var(--ndm); }
   .microbe[data-c="ampc"] .m-name .abbr{ color:var(--ampc); }
@@ -211,7 +211,7 @@
   .microbe[data-c="paer"] .m-name .abbr{ color:#8ea3d6; }
   .microbe[data-c="abau"] .m-name .abbr{ color:#ff4f6d; }
   .microbe[data-c="smar"] .m-name .abbr{ color:#d9633d; }
-
+ 
   /* ---------- DECOY / DISTRACTOR BACTERIA (blended into main tray, no matching zone) ---------- */
   :root{
     --mrsa:#ff5c7a;
@@ -227,7 +227,7 @@
   .microbe[data-c="acb"]   .m-name .abbr{ color:var(--acb); }
   .microbe[data-c="vre"]   .m-name .abbr{ color:var(--vre); }
   .microbe[data-c="cdiff"] .m-name .abbr{ color:var(--cdiff); }
-
+ 
   /* ---------- SPECTRUM PANEL ---------- */
   .spectrum-panel{
     border:1px solid #2c3a80;
@@ -253,7 +253,7 @@
     width:120px;
     background:linear-gradient(90deg, transparent, var(--imp), var(--vim), transparent);
   }
-
+ 
   .spectrum-line-wrap{ position:relative; padding:0 6px; }
   .spectrum-line{
     position:absolute;
@@ -299,9 +299,9 @@
   }
   .drop.filled svg{ width:64px; height:64px; }
   .drop .plus{ pointer-events:none; }
-
+ 
   .zone .drop{ border-color:#6c7bd9; box-shadow:0 0 18px #6c7bd944;}
-
+ 
   .drop.filled.correct{ box-shadow:0 0 32px currentColor; }
   .zone[data-c="esbl"] .drop.filled.correct{ border-color:var(--esbl); box-shadow:0 0 30px #ff7a45aa;}
   .zone[data-c="imp"]  .drop.filled.correct{ border-color:var(--imp);  box-shadow:0 0 30px #20d9c9aa;}
@@ -309,7 +309,7 @@
   .zone[data-c="ndm"]  .drop.filled.correct{ border-color:var(--ndm);  box-shadow:0 0 30px #3ddc84aa;}
   .zone[data-c="oxa"]  .drop.filled.correct{ border-color:var(--oxa);  box-shadow:0 0 30px #38a1ffaa;}
   .zone[data-c="vim"]  .drop.filled.correct{ border-color:var(--vim);  box-shadow:0 0 30px #a072ffaa;}
-
+ 
   .z-label{
     margin-top:14px;
     font-size:15px;
@@ -323,7 +323,7 @@
   .zone[data-c="ndm"] .z-label{ color:var(--ndm);}
   .zone[data-c="oxa"] .z-label{ color:var(--oxa);}
   .zone[data-c="vim"] .z-label{ color:var(--vim);}
-
+ 
   .z-sub{
     margin-top:4px;
     font-size:10.5px;
@@ -332,7 +332,7 @@
     max-width:120px;
     line-height:1.3;
   }
-
+ 
   /* feedback toast */
   .feedback{
     position:fixed;
@@ -352,7 +352,7 @@
   .feedback.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   .feedback.ok{ color:#7dffb0; border-color:#3ddc8488;}
   .feedback.bad{ color:#ff9d8a; border-color:#ff6b4a88;}
-
+ 
   .footnote{
     margin-top:24px;
     font-size:10.5px;
@@ -363,7 +363,7 @@
     margin-left:auto; margin-right:auto;
   }
   .footnote i{ font-style:italic; }
-
+ 
   .reset-row{
     display:flex; justify-content:center; margin-top:20px;
   }
@@ -380,7 +380,7 @@
     transition:all .15s ease;
   }
   .reset-btn:hover{ background:#4a5bd633; }
-
+ 
   @media (max-width:1100px){
     .tray{ justify-content:center; }
     .zones{ flex-wrap:wrap; }
@@ -391,7 +391,7 @@
 </head>
 <body>
 <div class="stage">
-
+ 
   <header>
     <div class="brand">
       <div class="eyebrow">RESISTANCE MECHANISM MATCHING GAME</div>
@@ -405,19 +405,19 @@
       <div class="pill"><b>Match each resistance mechanism</b> to its corresponding bacterium. Zones are unlabeled — and not every bacterium belongs to the Emblaveo® spectrum.</div>
     </div>
   </header>
-
+ 
   <!-- DRAGGABLE SOURCE TRAY -->
   <div class="tray-panel">
     <div class="tray-label">DRAG THE CORRECT BACTERIA TO THE SPECTRUM — NOT ALL OF THEM BELONG</div>
     <div class="tray" id="tray">
-
+ 
       <div class="microbe" draggable="true" data-c="kpc" id="src-kpc" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a2a08" stroke="#f4b93e" stroke-width="1.5"/><g stroke="#f4b93e" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="2" fill="#ffd97a"/><circle cx="30" cy="27" r="1.5" fill="#ffd97a"/><circle cx="40" cy="32" r="2" fill="#ffd97a"/></svg>
         </div>
         <div class="m-name">Klebsiella pneumoniae carbapenemase<span class="abbr">(KPC)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="mrsa" id="src-mrsa">
         <div class="m-circle">
           <svg viewBox="0 0 60 60">
@@ -431,14 +431,14 @@
         </div>
         <div class="m-name">Methicillin-resistant Staphylococcus aureus<span class="abbr">(MRSA)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="ndm" id="src-ndm" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#0a2e1a" stroke="#3ddc84" stroke-width="1.5"/><g stroke="#3ddc84" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M16 30 q4 -6 8 0 t8 0 t8 0 t8 0" fill="none" stroke="#8ff5b8" stroke-width="1.2"/></svg>
         </div>
         <div class="m-name">New Delhi metallo-β-lactamase<span class="abbr">(NDM)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="acb" id="src-acb">
         <div class="m-circle">
           <svg viewBox="0 0 60 60">
@@ -449,14 +449,14 @@
         </div>
         <div class="m-name">Carbapenem-resistant Enterobacterales<span class="abbr">(CRE, other)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="ampc" id="src-ampc" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#360a38" stroke="#e94ff0" stroke-width="1.5"/><g stroke="#e94ff0" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="22" cy="29" r="1.6" fill="#ffb3fb"/><circle cx="32" cy="31" r="1.6" fill="#ffb3fb"/><circle cx="41" cy="28" r="1.6" fill="#ffb3fb"/></svg>
         </div>
         <div class="m-name">AmpC<span class="abbr">(AmpC β-lactamase)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="vre" id="src-vre">
         <div class="m-circle">
           <svg viewBox="0 0 60 60">
@@ -469,14 +469,14 @@
         </div>
         <div class="m-name">Vancomycin-resistant Enterococcus faecium<span class="abbr">(VRE)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="oxa" id="src-oxa" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="8" y="25" width="44" height="10" rx="5" fill="#08203a" stroke="#38a1ff" stroke-width="1.5"/><g stroke="#38a1ff" stroke-width="1"><path d="M6 23 L0 18 M6 29 L-1 29 M6 35 L0 40"/><path d="M54 23 L60 18 M54 29 L61 29 M54 35 L60 40"/></g><path d="M14 30 h32" stroke="#9fd4ff" stroke-width="1" stroke-dasharray="2 2"/></svg>
         </div>
         <div class="m-name">OXA-48-like<span class="abbr">(oxacillinase)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="cdiff" id="src-cdiff">
         <div class="m-circle">
           <svg viewBox="0 0 60 60">
@@ -488,56 +488,56 @@
         </div>
         <div class="m-name">Clostridioides difficile<span class="abbr">(C. diff)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="esbl" id="src-esbl" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a1608" stroke="#ff7a45" stroke-width="1.5"/><g stroke="#ff7a45" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="19" cy="28" r="1.8" fill="#ffb493"/><circle cx="27" cy="33" r="1.4" fill="#ffb493"/><circle cx="35" cy="27" r="1.8" fill="#ffb493"/><circle cx="43" cy="31" r="1.4" fill="#ffb493"/></svg>
         </div>
         <div class="m-name">Extended-spectrum β-lactamase<span class="abbr">(ESBL)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="imp" id="src-imp" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#062e2b" stroke="#20d9c9" stroke-width="1.5"/><g stroke="#20d9c9" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M15 26 q3 8 6 0 t6 0 t6 0 t6 0 t6 0" fill="none" stroke="#8ff5ea" stroke-width="1.1"/></svg>
         </div>
         <div class="m-name">Imipenemase<span class="abbr">(IMP)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="vim" id="src-vim" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#1c0a3a" stroke="#a072ff" stroke-width="1.5"/><g stroke="#a072ff" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="1.5" fill="#cbb3ff"/><circle cx="30" cy="27" r="1.5" fill="#cbb3ff"/><circle cx="40" cy="30" r="1.5" fill="#cbb3ff"/></svg>
         </div>
         <div class="m-name">Verona integron-encoded metallo-β-lactamase<span class="abbr">(VIM)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="paer" id="src-paer">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="9" y="25" width="38" height="11" rx="5.5" fill="#141d38" stroke="#8ea3d6" stroke-width="1.5" transform="rotate(-4 30 30)"/><path d="M47 30 L58 22" stroke="#8ea3d6" stroke-width="1.2" fill="none"/><path d="M47 30 L57 33" stroke="#8ea3d6" stroke-width="1.2" fill="none"/><circle cx="18" cy="29" r="1.4" fill="#c3d0f5"/><circle cx="27" cy="32" r="1.4" fill="#c3d0f5"/><circle cx="36" cy="28" r="1.4" fill="#c3d0f5"/></svg>
         </div>
         <div class="m-name">Pseudomonas aeruginosa<span class="abbr">(P. aeruginosa)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="abau" id="src-abau">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><ellipse cx="22" cy="30" rx="9" ry="7" fill="#331018" stroke="#ff4f6d" stroke-width="1.5"/><ellipse cx="38" cy="30" rx="9" ry="7" fill="#331018" stroke="#ff4f6d" stroke-width="1.5"/><circle cx="20" cy="28" r="1.3" fill="#ffb3c0"/><circle cx="24" cy="32" r="1.1" fill="#ffb3c0"/><circle cx="36" cy="28" r="1.3" fill="#ffb3c0"/><circle cx="40" cy="32" r="1.1" fill="#ffb3c0"/></svg>
         </div>
         <div class="m-name">Acinetobacter baumannii<span class="abbr">(A. baumannii)</span></div>
       </div>
-
+ 
       <div class="microbe" draggable="true" data-c="smar" id="src-smar">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#331206" stroke="#d9633d" stroke-width="1.5"/><g stroke="#d9633d" stroke-width="1"><path d="M14 22 L10 16 M20 22 L18 15 M40 22 L42 15 M46 22 L50 16 M14 38 L10 44 M20 38 L18 45 M40 38 L42 45 M46 38 L50 44"/></g><circle cx="20" cy="30" r="1.6" fill="#ffb08a"/><circle cx="30" cy="28" r="1.6" fill="#ffb08a"/><circle cx="40" cy="31" r="1.6" fill="#ffb08a"/></svg>
         </div>
         <div class="m-name">Serratia marcescens<span class="abbr">(S. marcescens)</span></div>
       </div>
-
+ 
     </div>
   </div>
-
+ 
   <!-- OPEN DROP-ZONE SPECTRUM -->
   <div class="spectrum-panel">
     <div class="spectrum-title"><span class="rule"></span>EMBLAVEO® ACTIVITY SPECTRUM<span class="rule"></span></div>
-
+ 
     <div class="spectrum-line-wrap">
       <div class="spectrum-line"></div>
       <div class="zones" id="zones">
@@ -550,21 +550,21 @@
         <div class="zone" data-c="vim"><div class="drop" data-accept="vim"><span class="plus">+</span></div></div>
       </div>
     </div>
-
+ 
     <div class="reset-row"><button class="reset-btn" id="resetBtn">RESET GAME</button></div>
-
+ 
     <div class="footnote">
       ESBL, extended-spectrum β-lactamase; IMP, imipenemase; KPC, <i>Klebsiella pneumoniae</i> carbapenemase; MBL, metallo-β-lactamase; NDM, New Delhi metallo-β-lactamase; OXA, oxacillinase; VIM, Verona integron-encoded metallo-β-lactamase.
     </div>
   </div>
-
+ 
 </div>
-
+ 
 <div class="feedback" id="feedback"></div>
-
+ 
 <script>
 let dragged = null;
-
+ 
 document.querySelectorAll('.microbe').forEach(m=>{
   m.addEventListener('dragstart', e=>{
     dragged = m;
@@ -573,7 +573,7 @@ document.querySelectorAll('.microbe').forEach(m=>{
   });
   m.addEventListener('dragend', ()=> m.classList.remove('dragging'));
 });
-
+ 
 document.querySelectorAll('.drop').forEach(drop=>{
   drop.addEventListener('dragover', e=>{
     e.preventDefault();
@@ -586,7 +586,7 @@ document.querySelectorAll('.drop').forEach(drop=>{
     if(!dragged || drop.classList.contains('filled')) return;
     const isValid = dragged.dataset.valid === 'true';
     const fb = document.getElementById('feedback');
-
+ 
     if(isValid){
       drop.innerHTML = dragged.querySelector('.m-circle svg').outerHTML;
       drop.classList.add('filled','correct');
@@ -602,7 +602,7 @@ document.querySelectorAll('.drop').forEach(drop=>{
     dragged = null;
   });
 });
-
+ 
 document.getElementById('resetBtn').addEventListener('click', ()=>{
   document.querySelectorAll('.drop').forEach(d=>{
     d.innerHTML = '<span class="plus">+</span>';
@@ -616,3 +616,4 @@ document.getElementById('resetBtn').addEventListener('click', ()=>{
 </script>
 </body>
 </html>
+ 
