@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emblaveo® Activity Spectrum</title>
+<style>
+  :root{
+    --bg-deep:#060b1f;
+    --bg-mid:#0b1640;
+    --bg-glow:#111f5c;
+    --ink:#eef2ff;
+    --ink-dim:#9fb0d9;
+    --kpc:#f4b93e;
+    --ndm:#3ddc84;
+    --ampc:#e94ff0;
+    --oxa:#38a1ff;
+    --esbl:#ff7a45;
+    --imp:#20d9c9;
+    --vim:#a072ff;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, #17237a55, transparent 60%),
+      radial-gradient(1000px 700px at 105% 10%, #3a1a6b55, transparent 55%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 55%, var(--bg-deep) 100%);
+    color:var(--ink);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  .stage{
+    max-width:1440px;
+    margin:0 auto;
+    padding:38px 48px 60px;
+    position:relative;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:28px;
+  }
+  .brand{
+    border-left:4px solid;
+    border-image: linear-gradient(180deg, var(--imp), var(--vim)) 1;
+    padding-left:20px;
+  }
+  .brand .eyebrow{
+    font-size:12px;
+    letter-spacing:2.5px;
+    color:var(--ink-dim);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .brand h1{
+    font-size:44px;
+    line-height:1.02;
+    font-weight:800;
+  }
+  .brand h1 .l1{ color:#fff; display:block; }
+  .brand h1 .l2{
+    display:block;
+    background:linear-gradient(90deg, var(--imp), var(--vim));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .brand .sub{
+    margin-top:10px;
+    font-size:13px;
+    letter-spacing:1.5px;
+    color:var(--ink-dim);
+    font-weight:600;
+  }
+
+  .brief{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    max-width:420px;
+  }
+  .brief .badge{
+    width:56px; height:56px;
+    border-radius:50%;
+    flex-shrink:0;
+    background: radial-gradient(circle at 35% 30%, #2a2f7a, #0d1030);
+    border:1px solid #7b6bff77;
+    box-shadow:0 0 22px #6a4dff55;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .brief .pill{
+    border:1px solid #4a5bd688;
+    background:#0f1a4e77;
+    border-radius:16px;
+    padding:12px 18px;
+    font-size:13.5px;
+    line-height:1.4;
+    color:#dbe2ff;
+  }
+  .brief .pill b{ color:#fff; }
+
+  /* ---------- SOURCE TRAY (draggable bacteria) ---------- */
+  .tray-panel{
+    border:1px solid #2c3a80;
+    background:linear-gradient(180deg,#0d1544cc,#0a123299);
+    border-radius:18px;
+    padding:26px 22px 20px;
+    box-shadow: inset 0 0 60px #0a123055;
+    margin-bottom:34px;
+  }
+  .tray-label{
+    font-size:11.5px;
+    letter-spacing:2px;
+    color:var(--ink-dim);
+    font-weight:700;
+    margin-bottom:18px;
+  }
+  .tray{
+    display:flex;
+    gap:20px 14px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .tray-divider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:26px 0 16px;
+  }
+  .tray-divider .line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, transparent, #4a5bd688, transparent);
+  }
+  .tray-divider .txt{
+    font-size:10.5px;
+    letter-spacing:2px;
+    color:#7d8ac2;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .tray-outside{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .microbe{
+    width:128px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    cursor:grab;
+    user-select:none;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+  .microbe:active{ cursor:grabbing; }
+  .microbe.dragging{ opacity:.35; transform:scale(.94); }
+  .microbe.placed{ opacity:.28; filter:grayscale(.5); pointer-events:none; }
+
+  .m-circle{
+    width:96px; height:96px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    background: radial-gradient(circle at 38% 32%, #10163e, #05081c 72%);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .microbe:hover .m-circle{ transform:translateY(-4px); }
+  .m-circle svg{ width:60px; height:60px; }
+
+  .m-name{
+    margin-top:12px;
+    font-size:11.5px;
+    line-height:1.35;
+    text-align:center;
+    color:#e7ecff;
+    font-weight:600;
+    min-height:44px;
+  }
+  .m-name .abbr{
+    display:block;
+    margin-top:2px;
+    font-weight:800;
+    letter-spacing:.5px;
+  }
+
+  /* ring + glow per color, generated via data attr */
+  .microbe[data-c="kpc"] .m-circle{ border:2px solid var(--kpc); box-shadow:0 0 26px #f4b93e66, inset 0 0 20px #f4b93e22;}
+  .microbe[data-c="ndm"] .m-circle{ border:2px solid var(--ndm); box-shadow:0 0 26px #3ddc8466, inset 0 0 20px #3ddc8422;}
+  .microbe[data-c="ampc"] .m-circle{ border:2px solid var(--ampc); box-shadow:0 0 26px #e94ff066, inset 0 0 20px #e94ff022;}
+  .microbe[data-c="oxa"] .m-circle{ border:2px solid var(--oxa); box-shadow:0 0 26px #38a1ff66, inset 0 0 20px #38a1ff22;}
+  .microbe[data-c="esbl"] .m-circle{ border:2px solid var(--esbl); box-shadow:0 0 26px #ff7a4566, inset 0 0 20px #ff7a4522;}
+  .microbe[data-c="imp"] .m-circle{ border:2px solid var(--imp); box-shadow:0 0 26px #20d9c966, inset 0 0 20px #20d9c922;}
+  .microbe[data-c="vim"] .m-circle{ border:2px solid var(--vim); box-shadow:0 0 26px #a072ff66, inset 0 0 20px #a072ff22;}
+  .microbe[data-c="paer"] .m-circle{ border:2px solid #8ea3d6; box-shadow:0 0 26px #8ea3d666, inset 0 0 20px #8ea3d622;}
+  .microbe[data-c="abau"] .m-circle{ border:2px solid #ff4f6d; box-shadow:0 0 26px #ff4f6d66, inset 0 0 20px #ff4f6d22;}
+  .microbe[data-c="smar"] .m-circle{ border:2px solid #d9633d; box-shadow:0 0 26px #d9633d66, inset 0 0 20px #d9633d22;}
+
+  .microbe[data-c="kpc"] .m-name .abbr{ color:var(--kpc); }
+  .microbe[data-c="ndm"] .m-name .abbr{ color:var(--ndm); }
+  .microbe[data-c="ampc"] .m-name .abbr{ color:var(--ampc); }
+  .microbe[data-c="oxa"] .m-name .abbr{ color:var(--oxa); }
+  .microbe[data-c="esbl"] .m-name .abbr{ color:var(--esbl); }
+  .microbe[data-c="imp"] .m-name .abbr{ color:var(--imp); }
+  .microbe[data-c="vim"] .m-name .abbr{ color:var(--vim); }
+  .microbe[data-c="paer"] .m-name .abbr{ color:#8ea3d6; }
+  .microbe[data-c="abau"] .m-name .abbr{ color:#ff4f6d; }
+  .microbe[data-c="smar"] .m-name .abbr{ color:#d9633d; }
+
+  /* ---------- DECOY / DISTRACTOR BACTERIA (blended into main tray, no matching zone) ---------- */
+  :root{
+    --mrsa:#ff5c7a;
+    --acb:#c9d1e0;
+    --vre:#d9c14a;
+    --cdiff:#7ee0a8;
+  }
+  .microbe[data-c="mrsa"]  .m-circle{ border:2px solid var(--mrsa);  box-shadow:0 0 26px #ff5c7a55, inset 0 0 20px #ff5c7a1f;}
+  .microbe[data-c="acb"]   .m-circle{ border:2px solid var(--acb);   box-shadow:0 0 26px #c9d1e055, inset 0 0 20px #c9d1e01f;}
+  .microbe[data-c="vre"]   .m-circle{ border:2px solid var(--vre);   box-shadow:0 0 26px #d9c14a55, inset 0 0 20px #d9c14a1f;}
+  .microbe[data-c="cdiff"] .m-circle{ border:2px solid var(--cdiff); box-shadow:0 0 26px #7ee0a855, inset 0 0 20px #7ee0a81f;}
+  .microbe[data-c="mrsa"]  .m-name .abbr{ color:var(--mrsa); }
+  .microbe[data-c="acb"]   .m-name .abbr{ color:var(--acb); }
+  .microbe[data-c="vre"]   .m-name .abbr{ color:var(--vre); }
+  .microbe[data-c="cdiff"] .m-name .abbr{ color:var(--cdiff); }
+
+  /* ---------- SPECTRUM PANEL ---------- */
+  .spectrum-panel{
+    border:1px solid #2c3a80;
+    background:linear-gradient(180deg,#0a1030cc,#080c26cc);
+    border-radius:18px;
+    padding:30px 30px 26px;
+    position:relative;
+  }
+  .spectrum-title{
+    text-align:center;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:3px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    margin-bottom:30px;
+  }
+  .spectrum-title .rule{
+    height:1px;
+    width:120px;
+    background:linear-gradient(90deg, transparent, var(--imp), var(--vim), transparent);
+  }
+
+  .spectrum-line-wrap{ position:relative; padding:0 6px; }
+  .spectrum-line{
+    position:absolute;
+    top:52px;
+    left:6%;
+    right:6%;
+    height:2px;
+    background:linear-gradient(90deg,var(--esbl),var(--imp),var(--vim),var(--oxa),var(--ampc),var(--ndm),var(--kpc));
+    opacity:.35;
+  }
+  .zones{
+    position:relative;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .zone{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:8px;
+  }
+  .drop{
+    width:104px; height:104px;
+    border-radius:50%;
+    border:2px dashed;
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px;
+    font-weight:300;
+    color:#ffffff55;
+    background:#0a103a44;
+    transition:all .18s ease;
+    position:relative;
+  }
+  .drop.dragover{
+    transform:scale(1.08);
+    background:#141c5e77;
+  }
+  .drop.filled{
+    border-style:solid;
+    background: radial-gradient(circle at 38% 32%, #10163e, #05081c 72%);
+  }
+  .drop.filled svg{ width:64px; height:64px; }
+  .drop .plus{ pointer-events:none; }
+
+  .zone .drop{ border-color:#6c7bd9; box-shadow:0 0 18px #6c7bd944;}
+
+  .drop.filled.correct{ box-shadow:0 0 32px currentColor; }
+  .zone[data-c="esbl"] .drop.filled.correct{ border-color:var(--esbl); box-shadow:0 0 30px #ff7a45aa;}
+  .zone[data-c="imp"]  .drop.filled.correct{ border-color:var(--imp);  box-shadow:0 0 30px #20d9c9aa;}
+  .zone[data-c="kpc"]  .drop.filled.correct{ border-color:var(--kpc);  box-shadow:0 0 30px #f4b93eaa;}
+  .zone[data-c="ndm"]  .drop.filled.correct{ border-color:var(--ndm);  box-shadow:0 0 30px #3ddc84aa;}
+  .zone[data-c="oxa"]  .drop.filled.correct{ border-color:var(--oxa);  box-shadow:0 0 30px #38a1ffaa;}
+  .zone[data-c="vim"]  .drop.filled.correct{ border-color:var(--vim);  box-shadow:0 0 30px #a072ffaa;}
+
+  .z-label{
+    margin-top:14px;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:1px;
+  }
+  .zone[data-c="esbl"] .z-label{ color:var(--esbl);}
+  .zone[data-c="imp"] .z-label{ color:var(--imp);}
+  .zone[data-c="kpc"] .z-label{ color:var(--kpc);}
+  .zone[data-c="mbl"] .z-label{ color:#4ec9ff;}
+  .zone[data-c="ndm"] .z-label{ color:var(--ndm);}
+  .zone[data-c="oxa"] .z-label{ color:var(--oxa);}
+  .zone[data-c="vim"] .z-label{ color:var(--vim);}
+
+  .z-sub{
+    margin-top:4px;
+    font-size:10.5px;
+    color:var(--ink-dim);
+    text-align:center;
+    max-width:120px;
+    line-height:1.3;
+  }
+
+  /* feedback toast */
+  .feedback{
+    position:fixed;
+    bottom:26px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:#0d1440ee;
+    border:1px solid #3d4ea3;
+    padding:12px 22px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:600;
+    opacity:0;
+    transition:all .25s ease;
+    pointer-events:none;
+    box-shadow:0 8px 30px #00000066;
+  }
+  .feedback.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .feedback.ok{ color:#7dffb0; border-color:#3ddc8488;}
+  .feedback.bad{ color:#ff9d8a; border-color:#ff6b4a88;}
+
+  .footnote{
+    margin-top:24px;
+    font-size:10.5px;
+    line-height:1.6;
+    color:#7d8ac2;
+    text-align:center;
+    max-width:1100px;
+    margin-left:auto; margin-right:auto;
+  }
+  .footnote i{ font-style:italic; }
+
+  .reset-row{
+    display:flex; justify-content:center; margin-top:20px;
+  }
+  .reset-btn{
+    background:transparent;
+    border:1px solid #4a5bd6;
+    color:#c7d0ff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:1px;
+    padding:9px 20px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .reset-btn:hover{ background:#4a5bd633; }
+
+  @media (max-width:1100px){
+    .tray{ justify-content:center; }
+    .zones{ flex-wrap:wrap; }
+    .zone{ flex:0 0 22%; }
+    .spectrum-line{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <header>
+    <div class="brand">
+      <div class="eyebrow">RESISTANCE MECHANISM MATCHING GAME</div>
+      <h1><span class="l1">Emblaveo<sup style="font-size:16px;">®</sup></span><span class="l2">Activity Spectrum</span></h1>
+      <div class="sub">DRAG THE BACTERIUM TO ITS MATCHING ENZYME ZONE</div>
+    </div>
+    <div class="brief">
+      <div class="badge">
+        <svg width="30" height="30" viewBox="0 0 30 30"><ellipse cx="15" cy="15" rx="9" ry="5" fill="none" stroke="#9b8bff" stroke-width="1.6" transform="rotate(-25 15 15)"/><circle cx="15" cy="15" r="1.4" fill="#9b8bff"/><circle cx="11" cy="13" r="1" fill="#9b8bff"/><circle cx="19" cy="17" r="1" fill="#9b8bff"/></svg>
+      </div>
+      <div class="pill"><b>Match each resistance mechanism</b> to its corresponding bacterium. Zones are unlabeled — and not every bacterium belongs to the Emblaveo® spectrum.</div>
+    </div>
+  </header>
+
+  <!-- DRAGGABLE SOURCE TRAY -->
+  <div class="tray-panel">
+    <div class="tray-label">DRAG THE CORRECT BACTERIA TO THE SPECTRUM — NOT ALL OF THEM BELONG</div>
+    <div class="tray" id="tray">
+
+      <div class="microbe" draggable="true" data-c="kpc" id="src-kpc">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a2a08" stroke="#f4b93e" stroke-width="1.5"/><g stroke="#f4b93e" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="2" fill="#ffd97a"/><circle cx="30" cy="27" r="1.5" fill="#ffd97a"/><circle cx="40" cy="32" r="2" fill="#ffd97a"/></svg>
+        </div>
+        <div class="m-name">Klebsiella pneumoniae carbapenemase<span class="abbr">(KPC)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="mrsa" id="src-mrsa">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60">
+            <circle cx="22" cy="22" r="6" fill="#3a0a18" stroke="#ff5c7a" stroke-width="1.5"/>
+            <circle cx="34" cy="20" r="6" fill="#3a0a18" stroke="#ff5c7a" stroke-width="1.5"/>
+            <circle cx="26" cy="33" r="6" fill="#3a0a18" stroke="#ff5c7a" stroke-width="1.5"/>
+            <circle cx="38" cy="34" r="6" fill="#3a0a18" stroke="#ff5c7a" stroke-width="1.5"/>
+            <circle cx="18" cy="35" r="5" fill="#3a0a18" stroke="#ff5c7a" stroke-width="1.5"/>
+            <circle cx="34" cy="20" r="1.4" fill="#ffb3c2"/><circle cx="22" cy="22" r="1.4" fill="#ffb3c2"/><circle cx="26" cy="33" r="1.4" fill="#ffb3c2"/>
+          </svg>
+        </div>
+        <div class="m-name">Methicillin-resistant Staphylococcus aureus<span class="abbr">(MRSA)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="ndm" id="src-ndm">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#0a2e1a" stroke="#3ddc84" stroke-width="1.5"/><g stroke="#3ddc84" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M16 30 q4 -6 8 0 t8 0 t8 0 t8 0" fill="none" stroke="#8ff5b8" stroke-width="1.2"/></svg>
+        </div>
+        <div class="m-name">New Delhi metallo-β-lactamase<span class="abbr">(NDM)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="acb" id="src-acb">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60">
+            <rect x="16" y="20" width="28" height="20" rx="10" fill="#1a2030" stroke="#c9d1e0" stroke-width="1.5"/>
+            <g stroke="#c9d1e0" stroke-width="1"><path d="M14 24 L7 20 M14 36 L7 40"/><path d="M46 24 L53 20 M46 36 L53 40"/></g>
+            <circle cx="24" cy="28" r="1.4" fill="#eef2ff"/><circle cx="34" cy="32" r="1.4" fill="#eef2ff"/>
+          </svg>
+        </div>
+        <div class="m-name">Carbapenem-resistant Enterobacterales<span class="abbr">(CRE, other)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="ampc" id="src-ampc">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#360a38" stroke="#e94ff0" stroke-width="1.5"/><g stroke="#e94ff0" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="22" cy="29" r="1.6" fill="#ffb3fb"/><circle cx="32" cy="31" r="1.6" fill="#ffb3fb"/><circle cx="41" cy="28" r="1.6" fill="#ffb3fb"/></svg>
+        </div>
+        <div class="m-name">AmpC<span class="abbr">(AmpC β-lactamase)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="vre" id="src-vre">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60">
+            <ellipse cx="20" cy="26" rx="7" ry="6" fill="#332a08" stroke="#d9c14a" stroke-width="1.5"/>
+            <ellipse cx="32" cy="26" rx="7" ry="6" fill="#332a08" stroke="#d9c14a" stroke-width="1.5"/>
+            <ellipse cx="26" cy="37" rx="7" ry="6" fill="#332a08" stroke="#d9c14a" stroke-width="1.5"/>
+            <ellipse cx="38" cy="37" rx="7" ry="6" fill="#332a08" stroke="#d9c14a" stroke-width="1.5"/>
+            <circle cx="20" cy="26" r="1.3" fill="#ffe98a"/><circle cx="32" cy="26" r="1.3" fill="#ffe98a"/>
+          </svg>
+        </div>
+        <div class="m-name">Vancomycin-resistant Enterococcus faecium<span class="abbr">(VRE)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="oxa" id="src-oxa">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="8" y="25" width="44" height="10" rx="5" fill="#08203a" stroke="#38a1ff" stroke-width="1.5"/><g stroke="#38a1ff" stroke-width="1"><path d="M6 23 L0 18 M6 29 L-1 29 M6 35 L0 40"/><path d="M54 23 L60 18 M54 29 L61 29 M54 35 L60 40"/></g><path d="M14 30 h32" stroke="#9fd4ff" stroke-width="1" stroke-dasharray="2 2"/></svg>
+        </div>
+        <div class="m-name">OXA-48-like<span class="abbr">(oxacillinase)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="cdiff" id="src-cdiff">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60">
+            <rect x="12" y="26" width="30" height="10" rx="5" fill="#062a18" stroke="#7ee0a8" stroke-width="1.5"/>
+            <circle cx="46" cy="31" r="8" fill="#062a18" stroke="#7ee0a8" stroke-width="1.5"/>
+            <g stroke="#7ee0a8" stroke-width="1"><path d="M10 24 L4 19 M10 38 L4 43"/></g>
+            <circle cx="20" cy="31" r="1.3" fill="#b6f5cf"/><circle cx="30" cy="31" r="1.3" fill="#b6f5cf"/>
+          </svg>
+        </div>
+        <div class="m-name">Clostridioides difficile<span class="abbr">(C. diff)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="esbl" id="src-esbl">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a1608" stroke="#ff7a45" stroke-width="1.5"/><g stroke="#ff7a45" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="19" cy="28" r="1.8" fill="#ffb493"/><circle cx="27" cy="33" r="1.4" fill="#ffb493"/><circle cx="35" cy="27" r="1.8" fill="#ffb493"/><circle cx="43" cy="31" r="1.4" fill="#ffb493"/></svg>
+        </div>
+        <div class="m-name">Extended-spectrum β-lactamase<span class="abbr">(ESBL)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="imp" id="src-imp">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#062e2b" stroke="#20d9c9" stroke-width="1.5"/><g stroke="#20d9c9" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M15 26 q3 8 6 0 t6 0 t6 0 t6 0 t6 0" fill="none" stroke="#8ff5ea" stroke-width="1.1"/></svg>
+        </div>
+        <div class="m-name">Imipenemase<span class="abbr">(IMP)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="vim" id="src-vim">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#1c0a3a" stroke="#a072ff" stroke-width="1.5"/><g stroke="#a072ff" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="1.5" fill="#cbb3ff"/><circle cx="30" cy="27" r="1.5" fill="#cbb3ff"/><circle cx="40" cy="30" r="1.5" fill="#cbb3ff"/></svg>
+        </div>
+        <div class="m-name">Verona integron-encoded metallo-β-lactamase<span class="abbr">(VIM)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="paer" id="src-paer">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="9" y="25" width="38" height="11" rx="5.5" fill="#141d38" stroke="#8ea3d6" stroke-width="1.5" transform="rotate(-4 30 30)"/><path d="M47 30 L58 22" stroke="#8ea3d6" stroke-width="1.2" fill="none"/><path d="M47 30 L57 33" stroke="#8ea3d6" stroke-width="1.2" fill="none"/><circle cx="18" cy="29" r="1.4" fill="#c3d0f5"/><circle cx="27" cy="32" r="1.4" fill="#c3d0f5"/><circle cx="36" cy="28" r="1.4" fill="#c3d0f5"/></svg>
+        </div>
+        <div class="m-name">Pseudomonas aeruginosa<span class="abbr">(P. aeruginosa)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="abau" id="src-abau">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><ellipse cx="22" cy="30" rx="9" ry="7" fill="#331018" stroke="#ff4f6d" stroke-width="1.5"/><ellipse cx="38" cy="30" rx="9" ry="7" fill="#331018" stroke="#ff4f6d" stroke-width="1.5"/><circle cx="20" cy="28" r="1.3" fill="#ffb3c0"/><circle cx="24" cy="32" r="1.1" fill="#ffb3c0"/><circle cx="36" cy="28" r="1.3" fill="#ffb3c0"/><circle cx="40" cy="32" r="1.1" fill="#ffb3c0"/></svg>
+        </div>
+        <div class="m-name">Acinetobacter baumannii<span class="abbr">(A. baumannii)</span></div>
+      </div>
+
+      <div class="microbe" draggable="true" data-c="smar" id="src-smar">
+        <div class="m-circle">
+          <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#331206" stroke="#d9633d" stroke-width="1.5"/><g stroke="#d9633d" stroke-width="1"><path d="M14 22 L10 16 M20 22 L18 15 M40 22 L42 15 M46 22 L50 16 M14 38 L10 44 M20 38 L18 45 M40 38 L42 45 M46 38 L50 44"/></g><circle cx="20" cy="30" r="1.6" fill="#ffb08a"/><circle cx="30" cy="28" r="1.6" fill="#ffb08a"/><circle cx="40" cy="31" r="1.6" fill="#ffb08a"/></svg>
+        </div>
+        <div class="m-name">Serratia marcescens<span class="abbr">(S. marcescens)</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OPEN DROP-ZONE SPECTRUM -->
+  <div class="spectrum-panel">
+    <div class="spectrum-title"><span class="rule"></span>EMBLAVEO® ACTIVITY SPECTRUM<span class="rule"></span></div>
+
+    <div class="spectrum-line-wrap">
+      <div class="spectrum-line"></div>
+      <div class="zones" id="zones">
+        <div class="zone" data-c="esbl"><div class="drop" data-accept="esbl"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="imp"><div class="drop" data-accept="imp"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="kpc"><div class="drop" data-accept="kpc"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="mbl"><div class="drop" data-accept="ampc"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="ndm"><div class="drop" data-accept="ndm"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="oxa"><div class="drop" data-accept="oxa"><span class="plus">+</span></div></div>
+        <div class="zone" data-c="vim"><div class="drop" data-accept="vim"><span class="plus">+</span></div></div>
+      </div>
+    </div>
+
+    <div class="reset-row"><button class="reset-btn" id="resetBtn">RESET GAME</button></div>
+
+    <div class="footnote">
+      ESBL, extended-spectrum β-lactamase; IMP, imipenemase; KPC, <i>Klebsiella pneumoniae</i> carbapenemase; MBL, metallo-β-lactamase; NDM, New Delhi metallo-β-lactamase; OXA, oxacillinase; VIM, Verona integron-encoded metallo-β-lactamase.
+    </div>
+  </div>
+
+</div>
+
+<div class="feedback" id="feedback"></div>
+
+<script>
+let dragged = null;
+
+document.querySelectorAll('.microbe').forEach(m=>{
+  m.addEventListener('dragstart', e=>{
+    dragged = m;
+    m.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', m.dataset.c);
+  });
+  m.addEventListener('dragend', ()=> m.classList.remove('dragging'));
+});
+
+document.querySelectorAll('.drop').forEach(drop=>{
+  drop.addEventListener('dragover', e=>{
+    e.preventDefault();
+    drop.classList.add('dragover');
+  });
+  drop.addEventListener('dragleave', ()=> drop.classList.remove('dragover'));
+  drop.addEventListener('drop', e=>{
+    e.preventDefault();
+    drop.classList.remove('dragover');
+    if(!dragged || drop.classList.contains('filled')) return;
+    const val = dragged.dataset.c;
+    const accept = drop.dataset.accept;
+    const fb = document.getElementById('feedback');
+
+    if(val === accept){
+      drop.innerHTML = dragged.querySelector('.m-circle svg').outerHTML;
+      drop.classList.add('filled','correct');
+      dragged.classList.add('placed');
+      dragged.setAttribute('draggable','false');
+      fb.textContent = 'Correct match!';
+      fb.className = 'feedback show ok';
+    } else {
+      fb.textContent = 'Not quite — try another zone.';
+      fb.className = 'feedback show bad';
+    }
+    setTimeout(()=> fb.classList.remove('show'), 1400);
+    dragged = null;
+  });
+});
+
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('.drop').forEach(d=>{
+    d.innerHTML = '<span class="plus">+</span>';
+    d.classList.remove('filled','correct');
+  });
+  document.querySelectorAll('.microbe').forEach(m=>{
+    m.classList.remove('placed');
+    m.setAttribute('draggable','true');
+  });
+});
+</script>
+</body>
+</html>
