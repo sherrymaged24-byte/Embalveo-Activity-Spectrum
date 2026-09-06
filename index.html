@@ -411,7 +411,7 @@
     <div class="tray-label">DRAG THE CORRECT BACTERIA TO THE SPECTRUM — NOT ALL OF THEM BELONG</div>
     <div class="tray" id="tray">
 
-      <div class="microbe" draggable="true" data-c="kpc" id="src-kpc">
+      <div class="microbe" draggable="true" data-c="kpc" id="src-kpc" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a2a08" stroke="#f4b93e" stroke-width="1.5"/><g stroke="#f4b93e" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="2" fill="#ffd97a"/><circle cx="30" cy="27" r="1.5" fill="#ffd97a"/><circle cx="40" cy="32" r="2" fill="#ffd97a"/></svg>
         </div>
@@ -432,7 +432,7 @@
         <div class="m-name">Methicillin-resistant Staphylococcus aureus<span class="abbr">(MRSA)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="ndm" id="src-ndm">
+      <div class="microbe" draggable="true" data-c="ndm" id="src-ndm" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#0a2e1a" stroke="#3ddc84" stroke-width="1.5"/><g stroke="#3ddc84" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M16 30 q4 -6 8 0 t8 0 t8 0 t8 0" fill="none" stroke="#8ff5b8" stroke-width="1.2"/></svg>
         </div>
@@ -450,7 +450,7 @@
         <div class="m-name">Carbapenem-resistant Enterobacterales<span class="abbr">(CRE, other)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="ampc" id="src-ampc">
+      <div class="microbe" draggable="true" data-c="ampc" id="src-ampc" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#360a38" stroke="#e94ff0" stroke-width="1.5"/><g stroke="#e94ff0" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="22" cy="29" r="1.6" fill="#ffb3fb"/><circle cx="32" cy="31" r="1.6" fill="#ffb3fb"/><circle cx="41" cy="28" r="1.6" fill="#ffb3fb"/></svg>
         </div>
@@ -470,7 +470,7 @@
         <div class="m-name">Vancomycin-resistant Enterococcus faecium<span class="abbr">(VRE)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="oxa" id="src-oxa">
+      <div class="microbe" draggable="true" data-c="oxa" id="src-oxa" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="8" y="25" width="44" height="10" rx="5" fill="#08203a" stroke="#38a1ff" stroke-width="1.5"/><g stroke="#38a1ff" stroke-width="1"><path d="M6 23 L0 18 M6 29 L-1 29 M6 35 L0 40"/><path d="M54 23 L60 18 M54 29 L61 29 M54 35 L60 40"/></g><path d="M14 30 h32" stroke="#9fd4ff" stroke-width="1" stroke-dasharray="2 2"/></svg>
         </div>
@@ -489,21 +489,21 @@
         <div class="m-name">Clostridioides difficile<span class="abbr">(C. diff)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="esbl" id="src-esbl">
+      <div class="microbe" draggable="true" data-c="esbl" id="src-esbl" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#3a1608" stroke="#ff7a45" stroke-width="1.5"/><g stroke="#ff7a45" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="19" cy="28" r="1.8" fill="#ffb493"/><circle cx="27" cy="33" r="1.4" fill="#ffb493"/><circle cx="35" cy="27" r="1.8" fill="#ffb493"/><circle cx="43" cy="31" r="1.4" fill="#ffb493"/></svg>
         </div>
         <div class="m-name">Extended-spectrum β-lactamase<span class="abbr">(ESBL)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="imp" id="src-imp">
+      <div class="microbe" draggable="true" data-c="imp" id="src-imp" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#062e2b" stroke="#20d9c9" stroke-width="1.5"/><g stroke="#20d9c9" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><path d="M15 26 q3 8 6 0 t6 0 t6 0 t6 0 t6 0" fill="none" stroke="#8ff5ea" stroke-width="1.1"/></svg>
         </div>
         <div class="m-name">Imipenemase<span class="abbr">(IMP)</span></div>
       </div>
 
-      <div class="microbe" draggable="true" data-c="vim" id="src-vim">
+      <div class="microbe" draggable="true" data-c="vim" id="src-vim" data-valid="true">
         <div class="m-circle">
           <svg viewBox="0 0 60 60"><rect x="10" y="24" width="40" height="12" rx="6" fill="#1c0a3a" stroke="#a072ff" stroke-width="1.5"/><g stroke="#a072ff" stroke-width="1"><path d="M8 22 L2 16 M8 30 L1 30 M8 38 L2 44"/><path d="M52 22 L58 16 M52 30 L59 30 M52 38 L58 44"/></g><circle cx="20" cy="30" r="1.5" fill="#cbb3ff"/><circle cx="30" cy="27" r="1.5" fill="#cbb3ff"/><circle cx="40" cy="30" r="1.5" fill="#cbb3ff"/></svg>
         </div>
@@ -584,11 +584,10 @@ document.querySelectorAll('.drop').forEach(drop=>{
     e.preventDefault();
     drop.classList.remove('dragover');
     if(!dragged || drop.classList.contains('filled')) return;
-    const val = dragged.dataset.c;
-    const accept = drop.dataset.accept;
+    const isValid = dragged.dataset.valid === 'true';
     const fb = document.getElementById('feedback');
 
-    if(val === accept){
+    if(isValid){
       drop.innerHTML = dragged.querySelector('.m-circle svg').outerHTML;
       drop.classList.add('filled','correct');
       dragged.classList.add('placed');
@@ -596,7 +595,7 @@ document.querySelectorAll('.drop').forEach(drop=>{
       fb.textContent = 'Correct match!';
       fb.className = 'feedback show ok';
     } else {
-      fb.textContent = 'Not quite — try another zone.';
+      fb.textContent = 'Not quite — that one doesn\'t belong to the spectrum.';
       fb.className = 'feedback show bad';
     }
     setTimeout(()=> fb.classList.remove('show'), 1400);
